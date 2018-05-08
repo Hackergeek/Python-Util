@@ -22,16 +22,13 @@ def compareme(dir1, dir2):
 
 
 def main():
-    # if len(sys.argv) > 3:
-    #     dir1 = sys.argv[1]
-    #     dir2 = sys.argv[2]
-    #     dir3 = sys.argv[3]
-    # else:
-    #     print("Usage: ", sys.argv[0], "current_dir old_dir target_dir")
-    #     sys.exit(1)
-    dir1 = r'Z:\works\sc01\android\frameworks\base\packages\SystemUI'
-    dir2 = r'Y:\sg00\mydroid\vendor\desaysv\g5\packages\apps\privileges\SystemUI'
-    dir3 = r'D:\data\diff'
+    if len(sys.argv) > 3:
+        dir1 = sys.argv[1]
+        dir2 = sys.argv[2]
+        dir3 = sys.argv[3]
+    else:
+        print("Usage: ", sys.argv[0], "new_dir old_dir target_dir")
+        sys.exit(1)
     if not (os.path.exists(dir1) and os.path.exists(dir2)):
         print('Please make sure the path is correct and exist')
         sys.exit(1)
@@ -40,19 +37,14 @@ def main():
     if not (os.path.isdir(dir1) and os.path.isdir(dir2) and os.path.isdir(dir3)):
         print('Please make sure the path is a directory')
         sys.exit(1)
-    temp = dir1.split(os.path.sep)
-    length = len(temp)
     if not dir3.endswith(os.sep):
         dir3 = dir3 + os.sep
-    dir3 = dir3 + temp[length - 1]
-    print(dir3)
+    dir3 += os.path.basename(dir1)
+
     if not os.path.exists(dir3):
         os.makedirs(os.path.abspath(dir3))
-    if not dir3.endswith(os.sep):
-        dir3 = dir3 + os.sep
     source_files = compareme(dir1, dir2)
-    dir1 = os.path.abspath(dir1)
-    dir3 = os.path.abspath(dir3)
+
     if os.sep == '\\':
         dir1 = dir1.replace('\\', '\\\\')
         dir3 = dir3.replace('\\', '\\\\')
